@@ -187,6 +187,98 @@ python main.py
 - Cloud-hosted LLMs
 
 ---
+# Architecture
+
+```text
+                        ┌────────────────────┐
+                        │      main.py       │
+                        │  Entry Point       │
+                        └─────────┬──────────┘
+                                  │
+                                  ▼
+                  ┌──────────────────────────┐
+                  │   debate_manager.py      │
+                  │  Debate Orchestration    │
+                  └─────────┬────────────────┘
+                            │
+        ┌───────────────────┼───────────────────┐
+        │                   │                   │
+        ▼                   ▼                   ▼
+
+┌────────────────┐  ┌────────────────┐  ┌────────────────┐
+│    agent.py    │  │    topics.py   │  │     llm.py     │
+│ Agent Objects  │  │ Debate Topics  │  │ Model Interface│
+└────────────────┘  └────────────────┘  └────────┬───────┘
+                                                  │
+                                                  ▼
+                                      ┌────────────────────┐
+                                      │   Ollama / LLM     │
+                                      │ gpt-oss:120b-cloud │
+                                      └────────────────────┘
+```
+
+---
+
+## Component Responsibilities
+
+### `main.py`
+- Starts the debate system
+- Loads agents and topics
+- Controls debate execution flow
+
+---
+
+### `debate_manager.py`
+Core orchestration layer responsible for:
+- prompt construction
+- context passing
+- rebuttal handling
+- round management
+- debate coordination
+
+---
+
+### `agent.py`
+Defines AI debate agents using OOP principles.
+
+Each agent contains:
+- name
+- role
+- stance
+
+---
+
+### `topics.py`
+Stores structured debate topics and stances.
+
+Separates:
+- data
+from
+- orchestration logic
+
+---
+
+### `llm.py`
+Handles all communication with the language model.
+
+Responsibilities:
+- sending prompts
+- receiving responses
+- abstracting model interaction
+
+This allows future model switching without changing debate logic.
+
+---
+
+## System Flow
+
+1. `main.py` initializes debate agents
+2. Topic data is loaded from `topics.py`
+3. `debate_manager.py` creates prompts
+4. Prompts are sent through `llm.py`
+5. LLM generates responses
+6. Responses are passed between agents as context
+7. Judge agent analyzes the final debate
 
 # Final Note
 

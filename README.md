@@ -1,177 +1,106 @@
-# Multi-Agent Debate Simulator
+# MULTI-AGENT-DEBATE-SYSTEM
 
-A lightweight experimental project that simulates debates between multiple AI agents using local and cloud-based language models.
+An AI-powered Multi-Agent Debate System where multiple AI agents discuss, argue, critique, and refine responses collaboratively.
 
-The project explores how different AI agents interact when given:
-- different roles
-- different beliefs
-- shared context
-- opponent arguments
-
-Instead of building a simple chatbot, this project focuses on:
-- multi-agent interaction
-- prompt behavior
-- context flow
-- orchestration logic
-- modular AI system design
+Instead of generating a single answer directly, this system creates a structured debate between different AI agents to improve reasoning quality, creativity, and final output accuracy.
 
 ---
 
 # Features
 
-- Multiple AI debate agents
-- Role-based responses
-- Context-aware rebuttals
-- Judge analysis system
-- Modular project structure
-- Support for Ollama models
-- Local + cloud model experimentation
+* Multiple AI agents with different perspectives
+* Debate-style reasoning workflow
+* Critic/reviewer agent
+* Memory handling
+* Modular architecture
+* Beginner-friendly Python structure
+* Easy to extend with new agents
+* Works with cloud LLM APIs
 
 ---
 
 # Project Structure
 
 ```bash
-multi-agent-debate/
+MULTI-AGENT-DEBATE-SYSTEM/
 │
-├── main.py
-│
-├── core/
-│   ├── llm.py
-│   └── debate_manager.py
-│
-├── agents/
-│   └── agent.py
-│
-├── data/
-│   └── topics.py
-│
-├── .env.example
-├── requirements.txt
-└── README.md
+├── agent.py               # Individual AI agent logic
+├── debate-manager.py      # Manages debate flow between agents
+├── llm.py                 # LLM/API interaction layer
+├── memory.py              # Memory handling
+├── topics.py              # Debate topics/prompts
+├── main.py                # Main entry point
+├── requirements.txt       # Project dependencies
+├── README.md              # Documentation
+└── .gitignore
 ```
 
 ---
 
-# Concepts Explored
+# How It Works
 
-This project helped explore and experiment with:
+```text
+User Topic
+    |
+    v
+Debate Manager
+    |
+--------------------------------
+|              |              |
+Agent A      Agent B      Critic Agent
+|              |              |
+--------------------------------
+    |
+Final Synthesized Response
+```
 
-- Prompt engineering
-- Multi-agent interaction
-- Context passing
-- Role conditioning
-- Debate orchestration
-- Local LLM inference
-- Modular architecture
-- Separation of concerns
-- Basic OOP design
+Each agent generates its own response.
 
-Several interesting behaviors were also observed:
-- response imitation
-- behavioral drift
-- prompt sensitivity
-- instruction conflicts
-- context-dependent reasoning
+The debate manager:
 
----
-
-# Early Experiments & Observations
-
-## Experiment 1 — Small Local Models
-
-Initial testing was done using:
-
-- gemma:2b
-
-### Observations
-
-- lightweight and easy to run locally
-- struggled with stance consistency
-- agents sometimes accidentally agreed
-- long prompts reduced debate quality
-- concise prompts produced better interactions
-
-Example observation:
-> shorter prompts often created more natural debates than overly detailed prompts.
+* collects arguments
+* compares responses
+* manages discussion rounds
+* generates the final answer
 
 ---
 
-## Experiment 2 — Stronger Models
+# Tech Stack
 
-Later testing was performed using:
-
-- gpt-oss:120b-cloud
-
-### Observations
-
-- stronger reasoning quality
-- more coherent rebuttals
-- better role consistency
-- emergent moderator/judge-like behavior
-- improved contextual understanding
-
-The model occasionally introduced:
-- self-generated structure
-- nuanced arguments
-- implicit judging logic
-
-without explicit hardcoded instructions.
-
----
-
-# Why This Project Exists
-
-The goal of this project is not only to generate AI debates, but also to learn:
-
-- how AI systems are structured
-- how context affects model behavior
-- how orchestration layers work
-- how modular software architecture is designed
-
-This project is being developed incrementally as a learning-focused engineering experiment.
-
----
-
-# Future Plans
-
-- Multi-round debates
-- Debate memory system
-- Async agent execution
-- Real-time streaming responses
-- Agent scoring system
-- Debate visualization
-- Web interface
-- Multiple concurrent debate rooms
-
----
-
-# Example Debate Topics
-
-- Should AI replace teachers?
-- What if YouTube was banned in India?
-- Is remote work better than office culture?
-- Should social media require age verification?
-- Will AI create more jobs than it destroys?
+* Python
+* LLM APIs / GPT OSS
+* Async-ready architecture
+* Modular agent system
 
 ---
 
 # Installation
 
-## Clone Repository
+## 1. Clone Repository
 
 ```bash
-git clone <your-repo-url>
-cd multi-agent-debate
+git clone https://github.com/AANAND4YADAV/MULTI-AGENT-DEBATE-SYSTEM.git
 ```
 
-## Install Dependencies
+---
+
+## 2. Move Into Project Folder
+
+```bash
+cd MULTI-AGENT-DEBATE-SYSTEM
+```
+
+---
+
+## 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Run
+---
+
+# Run The Project
 
 ```bash
 python main.py
@@ -179,109 +108,95 @@ python main.py
 
 ---
 
-# Tech Stack
-
-- Python
-- Ollama
-- Local LLMs
-- Cloud-hosted LLMs
-
----
-# Architecture
+# Example Workflow
 
 ```text
-                        ┌────────────────────┐
-                        │      main.py       │
-                        │  Entry Point       │
-                        └─────────┬──────────┘
-                                  │
-                                  ▼
-                  ┌──────────────────────────┐
-                  │   debate_manager.py      │
-                  │  Debate Orchestration    │
-                  └─────────┬────────────────┘
-                            │
-        ┌───────────────────┼───────────────────┐
-        │                   │                   │
-        ▼                   ▼                   ▼
+Topic:
+"Will AI replace software engineers?"
 
-┌────────────────┐  ┌────────────────┐  ┌────────────────┐
-│    agent.py    │  │    topics.py   │  │     llm.py     │
-│ Agent Objects  │  │ Debate Topics  │  │ Model Interface│
-└────────────────┘  └────────────────┘  └────────┬───────┘
-                                                  │
-                                                  ▼
-                                      ┌────────────────────┐
-                                      │   Ollama / LLM     │
-                                      │ gpt-oss:120b-cloud │
-                                      └────────────────────┘
+↓
+Agent A:
+AI will automate repetitive coding tasks.
+
+↓
+Agent B:
+Human creativity and system thinking remain important.
+
+↓
+Critic Agent:
+Both arguments are partially correct.
+
+↓
+Final Response:
+Balanced synthesized conclusion generated.
 ```
 
 ---
 
-## Component Responsibilities
+# Future Improvements
 
-### `main.py`
-- Starts the debate system
-- Loads agents and topics
-- Controls debate execution flow
-
----
-
-### `debate_manager.py`
-Core orchestration layer responsible for:
-- prompt construction
-- context passing
-- rebuttal handling
-- round management
-- debate coordination
+* FastAPI backend
+* Async request handling
+* Queue system
+* Web UI
+* Streaming responses
+* Redis caching
+* Vector memory
+* Docker deployment
+* Multi-model support
+* Agent role customization
 
 ---
 
-### `agent.py`
-Defines AI debate agents using OOP principles.
+# Learning Goals Behind This Project
 
-Each agent contains:
-- name
-- role
-- stance
+This project explores concepts related to:
 
----
-
-### `topics.py`
-Stores structured debate topics and stances.
-
-Separates:
-- data
-from
-- orchestration logic
+* Multi-Agent Systems
+* AI Orchestration
+* System Design
+* Prompt Engineering
+* Distributed Workflows
+* AI Reasoning Pipelines
+* Backend Architecture
 
 ---
 
-### `llm.py`
-Handles all communication with the language model.
+# Why This Project Exists
 
-Responsibilities:
-- sending prompts
-- receiving responses
-- abstracting model interaction
+Traditional chatbots generate one-shot answers.
 
-This allows future model switching without changing debate logic.
+This project experiments with:
+
+* collaborative AI reasoning
+* debate-based thinking
+* critique loops
+* consensus generation
+
+to create more structured and thoughtful outputs.
 
 ---
 
-## System Flow
+# Contributing
 
-1. `main.py` initializes debate agents
-2. Topic data is loaded from `topics.py`
-3. `debate_manager.py` creates prompts
-4. Prompts are sent through `llm.py`
-5. LLM generates responses
-6. Responses are passed between agents as context
-7. Judge agent analyzes the final debate
+Contributions, ideas, and improvements are welcome.
 
-# Final Note
+Feel free to:
 
-This project started as a simple single-file experiment and gradually evolved into a modular multi-agent system.
+* fork the repo
+* improve agents
+* add new debate strategies
+* optimize architecture
 
-The main objective is continuous experimentation, learning, and understanding how intelligent systems behave under different prompting and orchestration strategies.
+---
+
+# Author
+
+GitHub:
+[AANAND4YADAV](https://github.com/AANAND4YADAV?utm_source=chatgpt.com)
+
+---
+
+# Star The Repository
+
+If you found this project interesting, consider giving it a star ⭐
